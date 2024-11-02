@@ -20,6 +20,7 @@ const data = [
   ['John Smith', 25, 'john@example.com'],
   ['Jane Doe', 30, 'jane@example.com'],
   ['Bob Johnson', 45, 'bob@example.com'],
+  [45, 45, 'bob@example.com'],
 ];
 
 export const TableExample = Template.bind({});

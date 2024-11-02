@@ -12,5 +12,55 @@ export type TableProps = {
 };
 
 export function Table({ headers, data }: TableProps) {
-  return <table />;
+  return (
+    <table css={tableStyles}>
+      <thead>
+        <tr>
+          {headers.map((header, index) => (
+            <th key={index}>{header.title}</th>
+          ))}
+        </tr>
+      </thead>
+      <tbody>
+        {data.map((row, index) => (
+          <tr key={index}>
+            {row.map((cell, cellindex) => (
+              <td key={cellindex}>{formatCell(cell, headers[cellindex].formatter)}</td>
+            ))}
+          </tr>
+        ))}
+      </tbody>
+    </table>
+  );
 }
+
+const tableStyles = css`
+  width: 100%;
+  border-collapse: collapse;
+
+  th,
+  td {
+    border: 1px solid black;
+    padding: 8px;
+    text-align: center;
+  }
+
+  th {
+    background-color: #f2f2f2;
+  }
+
+  tr {
+    background-color: white;
+  }
+
+  tr:nth-of-type(even) {
+    background-color: #f5f5f5;
+  }
+
+  tr:hover {
+    background-color: #d9d9d9;
+  }
+`;
+
+const formatCell = (cellData: React.ReactNode, formatter: HeaderConfig['formatter']) =>
+  typeof formatter === 'function' ? formatter(cellData) : cellData;
